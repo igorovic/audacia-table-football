@@ -26,9 +26,6 @@ const allPlayersSchema = z.array(PlayerSchema).openapi('Players')
 export const listPlayers = createRoute({
     method: 'get',
     path: '/players',
-    // request: {
-    //     params: ParamsSchema,
-    // },
     responses: {
         200: {
             content: {

@@ -26,7 +26,7 @@ api.openapi(getPlayerByIdRoute, async (c) => {
   return c.json(player)
 })
 
-// The OpenAPI documentation will be available at /doc
+// The OpenAPI documentation will be available at /openapi.json
 api.doc('/openapi.json', {
   openapi: '3.0.0',
   info: {
