@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "scripts": {
-    "dev": "tsx --env-file=.env watch src/index.ts",
+    "dev": "tsx watch --env-file=.env src/index.ts",
     "start": "tsx --env-file=.env src/index.ts",
     "prisma:push": "dotenv -e .env -- prisma db push",
     "prisma:gen": "dotenv -e .env -- prisma generate",
@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.12.2",
+    "@hono/swagger-ui": "^0.4.1",
+    "@hono/zod-openapi": "^0.16.0",
     "@prisma/client": "5.19.1",
     "dotenv-cli": "^7.4.2",
     "hono": "^4.5.11"
