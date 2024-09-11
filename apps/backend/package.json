@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "scripts": {
+    "dev": "tsx --env-file=.env watch src/index.ts",
+    "start": "tsx --env-file=.env src/index.ts",
+    "prisma:push": "dotenv -e .env -- prisma db push",
+    "prisma:gen": "dotenv -e .env -- prisma generate"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.2",
+    "@prisma/client": "5.19.1",
+    "dotenv-cli": "^7.4.2",
+    "hono": "^4.5.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "prisma": "^5.19.1",
+    "tsx": "^4.7.1"
+  }
+}
