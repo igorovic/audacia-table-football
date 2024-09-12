@@ -1,6 +1,6 @@
 import { apiUrl } from "../env"
-
-export const fetchPlayers = async () => {
+import { Player } from "../types"
+export const fetchPlayers = async (): Promise<Player[]> => {
   const response = await fetch(`${apiUrl}/api/players`)
   if (!response.ok) {
     throw new Error('Network response was not ok')
