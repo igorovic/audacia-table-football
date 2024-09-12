@@ -56,3 +56,23 @@ export const getPlayerByIdRoute = createRoute({
         },
     },
 })
+
+export const createPlayerRoute = createRoute({
+    method: 'post',
+    path: '/players',
+    request: {
+        params: z.object({
+            name: z.string().min(1),
+        }),
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: PlayerSchema,
+                },
+            },
+            description: 'Create a new player',
+        },
+    },
+})

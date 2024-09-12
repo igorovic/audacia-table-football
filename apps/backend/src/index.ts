@@ -1,9 +1,9 @@
 import { serve } from '@hono/node-server'
 import { cors } from 'hono/cors'
 import { OpenAPIHono } from '@hono/zod-openapi'
-import { getPlayerByIdRoute, listPlayers } from './routes/player.route'
+import { getPlayerByIdRoute, listPlayers, createPlayerRoute } from './routes/player.route'
 import { swaggerUI } from '@hono/swagger-ui'
-import { getAllPlayers, getPlayerById } from './database'
+import { createPlayer, getAllPlayers, getPlayerById } from './database'
 
 const app = new OpenAPIHono()
 const api = new OpenAPIHono()
@@ -18,6 +18,12 @@ api.openapi(listPlayers, async (c) => {
 api.openapi(getPlayerByIdRoute, async (c) => {
   const { id } = c.req.valid('param')
   const player = await getPlayerById(Number(id))
+  return c.json(player)
+})
+
+api.openapi(createPlayerRoute, async (c) => {
+  const { name } = c.req.valid('param')
+  const player = await createPlayer(name)
   return c.json(player)
 })
 
