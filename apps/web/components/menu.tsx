@@ -14,7 +14,7 @@ function AppMenu() {
           Leaderboard
         </MantineMenu.Item>
         <MantineMenu.Item leftSection={<IconSoccerField />}>
-          Add game score
+          Store match results
         </MantineMenu.Item>
       </MantineMenu.Dropdown>
     </MantineMenu>
