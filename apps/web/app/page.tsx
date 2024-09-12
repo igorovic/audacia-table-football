@@ -1,11 +1,10 @@
-import Image from 'next/image'
-import styles from './page.module.css'
 import { Container } from '@mantine/core'
+import SoccerField from '../components/soccer-field'
 
 export default function Home() {
   return (
-    <Container size="sm">
-      <h2>Initial </h2>
+    <Container size="sm" h="100vh">
+      <SoccerField />
     </Container>
   )
 }
