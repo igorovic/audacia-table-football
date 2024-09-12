@@ -22,7 +22,7 @@ api.openapi(getPlayerByIdRoute, async (c) => {
 })
 
 api.openapi(createPlayerRoute, async (c) => {
-  const { name } = c.req.valid('param')
+  const { name } = c.req.valid('json')
   const player = await createPlayer(name)
   return c.json(player)
 })

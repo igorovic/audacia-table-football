@@ -61,9 +61,18 @@ export const createPlayerRoute = createRoute({
     method: 'post',
     path: '/players',
     request: {
-        params: z.object({
-            name: z.string().min(1),
-        }),
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        name: z.string().min(1),
+                    }),
+                },
+            },
+            required: true,
+            type: 'json',
+            description: 'The player name to create',
+        },
     },
     responses: {
         200: {
