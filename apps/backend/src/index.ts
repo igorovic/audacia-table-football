@@ -35,6 +35,7 @@ app.get('/', swaggerUI({ url: '/api/openapi.json' }))
 
 const port = 3022
 console.log(`Server is running on port ${port}`)
+console.log(`Database file: ${process.env.DATABASE_URL}`)
 
 serve({
   fetch: app.fetch,
