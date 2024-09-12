@@ -4,7 +4,7 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core'
 import { ReactNode } from 'react'
 import Providers from './providers'
 import '@mantine/core/styles.css'
-import './globals.css'
+// import './globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -25,8 +25,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
         <ColorSchemeScript />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider>
           <Providers>{children}</Providers>
         </MantineProvider>
