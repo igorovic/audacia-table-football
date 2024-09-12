@@ -26,8 +26,10 @@ ENV DATABASE_URL="file:/app/data/app.db"
 # Volume configuration for persistent data
 VOLUME /app/data
 
+RUN chmod +x /app/start.sh
+
 # Command to run the application
-CMD ["npm", "start"]
+CMD ["./start.sh"]
 
 # Example command to run the container
 # docker run -p 3022:3022 -v ./data:/app/data --name tfoot-backend -d tfoot-backend

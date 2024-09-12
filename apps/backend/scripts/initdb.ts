@@ -8,7 +8,9 @@ export async function initializeDatabase() {
     try {
         const databaseUrl = process.env.DATABASE_URL;
         if (!databaseUrl) {
-            throw new Error('DATABASE_URL environment variable is not set');
+            // throw new Error('DATABASE_URL environment variable is not set');
+            console.error('DATABASE_URL environment variable is not set');
+            return;
         }
 
         // Extract the file path from the DATABASE_URL
@@ -29,6 +31,8 @@ export async function initializeDatabase() {
         console.log('Database initialized successfully');
     } catch (error) {
         console.error('Error initializing database:', error);
-        throw error;
+        // throw error;
     }
 }
+
+initializeDatabase()
