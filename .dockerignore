@@ -1,0 +1,2 @@
+# Ignore all node_modules directories since they will be installed by npm install in the Dockerfile
+**/node_modules
