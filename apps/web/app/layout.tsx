@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { ColorSchemeScript, MantineProvider } from '@mantine/core'
+import { ReactNode } from 'react'
+import Providers from './providers'
 import '@mantine/core/styles.css'
 import './globals.css'
 
@@ -14,25 +17,19 @@ const geistMono = localFont({
   display: 'swap',
 })
 
-import { ColorSchemeScript, MantineProvider } from '@mantine/core'
-
 export const metadata: Metadata = {
   title: 'Table football',
-  description: 'Simple app to track table football games',
+  description: 'Simple app to track table football scores',
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MantineProvider>{children}</MantineProvider>
+        <ColorSchemeScript />
+        <MantineProvider>
+          <Providers>{children}</Providers>
+        </MantineProvider>
       </body>
     </html>
   )
