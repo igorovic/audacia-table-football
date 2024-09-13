@@ -13,8 +13,15 @@ import {
   getAllPlayers,
   getPlayerById,
   setPlayerGoals,
+  incrementPlayerGoals,
+  decrementPlayerGoals,
 } from './database'
-import { storeMatchResultsRoute, createGameRoute } from './routes/game.route'
+import {
+  storeMatchResultsRoute,
+  createGameRoute,
+  incrementGameGoalsRoute,
+  decrementGameGoalsRoute,
+} from './routes/game.route'
 
 const app = new OpenAPIHono()
 const api = new OpenAPIHono()
@@ -35,6 +42,18 @@ api.openapi(createPlayerRoute, async (c) => {
   const { name } = c.req.valid('json')
   const player = await createPlayer(name)
   return c.json(player)
+})
+
+api.openapi(incrementGameGoalsRoute, async (c) => {
+  const { gameId, playerId } = c.req.valid('json')
+  const result = await incrementPlayerGoals(gameId, playerId)
+  return c.json({ gameId, playerId, goals: result.goals })
+})
+
+api.openapi(decrementGameGoalsRoute, async (c) => {
+  const { gameId, playerId } = c.req.valid('json')
+  const result = await decrementPlayerGoals(gameId, playerId)
+  return c.json({ gameId, playerId, goals: result.goals })
 })
 
 api.openapi(storeMatchResultsRoute, async (c) => {

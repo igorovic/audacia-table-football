@@ -69,3 +69,119 @@ export const createGameRoute = createRoute({
     },
   },
 })
+
+export const incrementGameGoalsRoute = createRoute({
+  method: 'put',
+  path: '/games/{gameId}/increment-goals',
+  request: {
+    params: z.object({
+      gameId: z.number(),
+    }),
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            playerId: z.number(),
+          }),
+        },
+      },
+    },
+    required: true,
+    type: 'json',
+    description: 'Increment the goals of a player in a game',
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            playerId: z.number(),
+            goals: z.number(),
+          }),
+        },
+      },
+      description: 'Increment the goals of a player in a game',
+    },
+  },
+})
+
+export const decrementGameGoalsRoute = createRoute({
+  method: 'put',
+  path: '/games/{gameId}/decrement-goals',
+  request: {
+    params: z.object({
+      gameId: z.number(),
+    }),
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            playerId: z.number(),
+          }),
+        },
+      },
+    },
+    required: true,
+    type: 'json',
+    description: 'Decrement the goals of a player in a game',
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            playerId: z.number(),
+            goals: z.number(),
+          }),
+        },
+      },
+      description: 'Decrement the goals of a player in a game',
+    },
+  },
+})
+
+export const changeGameScoreRoute = createRoute({
+  method: 'put',
+  path: '/games/{gameId}/change-score',
+  request: {
+    params: z.object({
+      gameId: z.number(),
+    }),
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            player1Id: z.number(),
+            player2Id: z.number(),
+            goalsPlayer1: z.number(),
+            goalsPlayer2: z.number(),
+          }),
+        },
+      },
+    },
+    required: true,
+    type: 'json',
+    description: 'The game score to change',
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            gameId: z.number(),
+            player1Id: z.number(),
+            player2Id: z.number(),
+            goalsPlayer1: z.number(),
+            goalsPlayer2: z.number(),
+          }),
+        },
+      },
+      description: 'Change the game score',
+    },
+  },
+})
