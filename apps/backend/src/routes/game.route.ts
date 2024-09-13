@@ -81,7 +81,6 @@ export const incrementGameGoalsRoute = createRoute({
       content: {
         'application/json': {
           schema: z.object({
-            gameId: z.number(),
             playerId: z.number(),
           }),
         },
@@ -118,7 +117,6 @@ export const decrementGameGoalsRoute = createRoute({
       content: {
         'application/json': {
           schema: z.object({
-            gameId: z.number(),
             playerId: z.number(),
           }),
         },
@@ -144,9 +142,9 @@ export const decrementGameGoalsRoute = createRoute({
   },
 })
 
-export const changeGameScoreRoute = createRoute({
+export const setGameGoalsRoute = createRoute({
   method: 'put',
-  path: '/games/{gameId}/change-score',
+  path: '/games/{gameId}/set-goals',
   request: {
     params: z.object({
       gameId: z.number(),
@@ -155,18 +153,15 @@ export const changeGameScoreRoute = createRoute({
       content: {
         'application/json': {
           schema: z.object({
-            gameId: z.number(),
-            player1Id: z.number(),
-            player2Id: z.number(),
-            goalsPlayer1: z.number(),
-            goalsPlayer2: z.number(),
+            playerId: z.number(),
+            goals: z.number(),
           }),
         },
       },
     },
     required: true,
     type: 'json',
-    description: 'The game score to change',
+    description: 'Set the goals of a player in a game',
   },
   responses: {
     200: {
@@ -174,14 +169,12 @@ export const changeGameScoreRoute = createRoute({
         'application/json': {
           schema: z.object({
             gameId: z.number(),
-            player1Id: z.number(),
-            player2Id: z.number(),
-            goalsPlayer1: z.number(),
-            goalsPlayer2: z.number(),
+            playerId: z.number(),
+            goals: z.number(),
           }),
         },
       },
-      description: 'Change the game score',
+      description: 'Set the goals of a player in a game',
     },
   },
 })
