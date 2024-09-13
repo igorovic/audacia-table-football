@@ -29,7 +29,10 @@ docker compose up --build
 
 ## Database
 
+### Issues to fix
+
 - In the current version, it's possible to create a game but not set any score. In that case there will be an orphan game in `Game` table without participants. We should implement a pruning function for those instances or some security mechanism to avoid this case.
+- There is no security to check on game participants. Which means that is's possible to add more than two players to a game.
 
 ## Options for future improvements
 
