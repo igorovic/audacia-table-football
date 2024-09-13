@@ -3,7 +3,8 @@ import { cors } from 'hono/cors'
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { getPlayerByIdRoute, listPlayers, createPlayerRoute } from './routes/player.route'
 import { swaggerUI } from '@hono/swagger-ui'
-import { createPlayer, getAllPlayers, getPlayerById } from './database'
+import { createGame, createPlayer, getAllPlayers, getPlayerById, setPlayerGoals } from './database'
+import { storeMatchResultsRoute } from './routes/game.route'
 
 const app = new OpenAPIHono()
 const api = new OpenAPIHono()
@@ -25,6 +26,21 @@ api.openapi(createPlayerRoute, async (c) => {
   const { name } = c.req.valid('json')
   const player = await createPlayer(name)
   return c.json(player)
+})
+
+api.openapi(storeMatchResultsRoute, async (c) => {
+  const { player1Id, player2Id, goalsPlayer1, goalsPlayer2 } = c.req.valid('json')
+  const game = await createGame([player1Id, player2Id])
+  await setPlayerGoals(game.id, player1Id, goalsPlayer1)
+  await setPlayerGoals(game.id, player2Id, goalsPlayer2)
+  const result = {
+    player1Id,
+    player2Id,
+    goalsPlayer1,
+    goalsPlayer2,
+    gameId: game.id,
+  }
+  return c.json(result)
 })
 
 // The OpenAPI documentation will be available at /openapi.json
