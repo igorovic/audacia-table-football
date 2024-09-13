@@ -1,3 +1,4 @@
+'use client'
 import { ActionIcon, Menu as MantineMenu } from '@mantine/core'
 import { IconMenu2, IconSoccerField, IconTrophy } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
