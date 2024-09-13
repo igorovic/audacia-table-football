@@ -1,3 +1,4 @@
+'use client'
 import { ActionIcon, Flex, NumberInput, Stack, Text } from '@mantine/core'
 import { IconMinus, IconPlus } from '@tabler/icons-react'
 import { usePlayers } from '../app/utils/hooks'
@@ -7,6 +8,7 @@ function GameTracker() {
   const { player1, player2 } = usePlayers()
   const [g1, setG1] = useQueryState('g1')
   const [g2, setG2] = useQueryState('g2')
+  const [gameId, setGameId] = useQueryState('gameId')
   return (
     <Stack>
       <Text style={{ textAlign: 'center', flexGrow: 1 }} fw={700}>

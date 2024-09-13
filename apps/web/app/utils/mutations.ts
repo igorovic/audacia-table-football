@@ -38,3 +38,23 @@ export const storeMatchResults = async (score: {
 
   return response.json()
 }
+
+export const createGame = async (players: {
+  player1Id: number
+  player2Id: number
+}): Promise<{ gameId: number }> => {
+  const { player1Id, player2Id } = players
+  const response = await fetch(`${apiUrl}/api/games`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ player1Id, player2Id }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create game')
+  }
+
+  return response.json()
+}

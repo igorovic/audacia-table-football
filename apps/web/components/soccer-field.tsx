@@ -4,11 +4,19 @@ import { Box, Button, Card, Flex, Text } from '@mantine/core'
 import SelectPlayers from './select-player'
 import { useRouter } from 'next/navigation'
 import { useQueryState } from 'nuqs'
+import { createGame } from '../app/utils/mutations'
+import { useMutation } from '@tanstack/react-query'
 
 function SoccerField() {
   const router = useRouter()
   const [player1] = useQueryState('p1')
   const [player2] = useQueryState('p2')
+  const { mutate, error } = useMutation({
+    mutationFn: createGame,
+    onSuccess: (data) => {
+      router.push(`/game?gameId=${data.gameId}&p1=${player1}&p2=${player2}`)
+    },
+  })
   return (
     <Box h="100vh" p="md">
       <Card radius="md" my="md" withBorder>
@@ -22,9 +30,14 @@ function SoccerField() {
           <SelectPlayers />
           <Button
             color="green"
-            onClick={() =>
-              router.push(`/game?p1=${player1}&p2=${player2}&g1=0&g2=0`)
-            }
+            onClick={() => {
+              if (player1 && player2) {
+                mutate({
+                  player1Id: parseInt(player1),
+                  player2Id: parseInt(player2),
+                })
+              }
+            }}
             disabled={!player1 || !player2}
           >
             Start game
@@ -33,6 +46,7 @@ function SoccerField() {
         <Flex align="center" justify="center" mt="md">
           <Text>select players</Text>
         </Flex>
+        {error && <Text c="red">{error.message}</Text>}
       </Card>
     </Box>
   )
