@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { ColorSchemeScript, MantineProvider } from '@mantine/core'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import Providers from './providers'
 import '@mantine/core/styles.css'
 // import './globals.css'
@@ -30,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          </Providers>
         </MantineProvider>
       </body>
     </html>
