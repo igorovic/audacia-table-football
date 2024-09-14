@@ -75,7 +75,7 @@ export const incrementGameGoalsRoute = createRoute({
   path: '/games/{gameId}/increment-goals',
   request: {
     params: z.object({
-      gameId: z.number(),
+      gameId: z.string().min(1),
     }),
     body: {
       content: {
@@ -111,7 +111,7 @@ export const decrementGameGoalsRoute = createRoute({
   path: '/games/{gameId}/decrement-goals',
   request: {
     params: z.object({
-      gameId: z.number(),
+      gameId: z.string().min(1),
     }),
     body: {
       content: {
@@ -147,7 +147,7 @@ export const setGameGoalsRoute = createRoute({
   path: '/games/{gameId}/set-goals',
   request: {
     params: z.object({
-      gameId: z.number(),
+      gameId: z.string().min(1),
     }),
     body: {
       content: {

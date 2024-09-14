@@ -15,6 +15,7 @@ import {
   setPlayerGoals,
   incrementPlayerGoals,
   decrementPlayerGoals,
+  getPlayerGoals,
 } from './database'
 import {
   storeMatchResultsRoute,
@@ -48,21 +49,25 @@ api.openapi(createPlayerRoute, async (c) => {
 api.openapi(incrementGameGoalsRoute, async (c) => {
   const { gameId } = c.req.valid('param')
   const { playerId } = c.req.valid('json')
-  const result = await incrementPlayerGoals(gameId, playerId)
-  return c.json({ gameId, playerId, goals: result.goals })
+  const result = await incrementPlayerGoals(Number(gameId), playerId)
+  return c.json({ gameId: Number(gameId), playerId, goals: result.goals })
 })
 
 api.openapi(decrementGameGoalsRoute, async (c) => {
   const { gameId } = c.req.valid('param')
   const { playerId } = c.req.valid('json')
-  const result = await decrementPlayerGoals(gameId, playerId)
-  return c.json({ gameId, playerId, goals: result.goals })
+  const goals = await getPlayerGoals(Number(gameId), playerId)
+  if (goals === 0) {
+    return c.json({ gameId: Number(gameId), playerId, goals: 0 } )
+  }
+  const result = await decrementPlayerGoals(Number(gameId), playerId)
+  return c.json({ gameId: Number(gameId), playerId, goals: result.goals })
 })
 api.openapi(setGameGoalsRoute, async (c) => {
   const { gameId } = c.req.valid('param')
   const { playerId, goals } = c.req.valid('json')
-  const result = await setPlayerGoals(gameId, playerId, goals)
-  return c.json({ gameId, playerId, goals: result.goals })
+  const result = await setPlayerGoals(Number(gameId), playerId, goals)
+  return c.json({ gameId: Number(gameId), playerId, goals: result.goals })
 })
 
 api.openapi(storeMatchResultsRoute, async (c) => {
