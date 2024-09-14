@@ -37,10 +37,17 @@ The `backend` code resides in the `apps/backend` folder and the `web` app in the
 
 ## Database
 
+There was not much thought put into the database schema. The goal was to create a quick POC which implements the requirements.
+
 ### Issues to fix
 
 - In the current version, it's possible to create a game but not set any score. In that case there will be an orphan game in `Game` table without participants. We should implement a pruning function for those instances or some security mechanism to avoid this case.
 - There is no security to check on game participants. Which means that is's possible to add more than two players to a game.
+
+# Tests
+
+Tests are descrutive they will resest the database. So make sure to back up the database before running them.
+However this is temporary and will only impact dev environment on the local machine.
 
 # Notes
 
