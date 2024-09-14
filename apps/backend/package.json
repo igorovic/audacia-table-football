@@ -2,7 +2,7 @@
   "name": "backend",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "start": "tsx --env-file=.env src/index.ts",
+    "start": "tsx src/index.ts",
     "prisma:push": "dotenv -e .env -- prisma db push",
     "prisma:gen": "dotenv -e .env -- prisma generate",
     "test": "vitest",
