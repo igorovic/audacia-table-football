@@ -1,5 +1,5 @@
 import { apiUrl } from '../env'
-import { Game, Player } from '../types'
+import { Game, Player, PlayerStats } from '../types'
 
 export const createPlayer = async (name: string): Promise<Player> => {
   const response = await fetch(`${apiUrl}/api/players`, {
@@ -58,3 +58,54 @@ export const createGame = async (players: {
 
   return response.json()
 }
+
+export const incrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerStats> => {
+  const { gameId, playerId } = args
+  const response = await fetch(`${apiUrl}/api/games/${gameId}/increment-goals`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ playerId }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to increment game goals')
+  }
+
+  return response.json()
+}
+
+export const decrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerStats> => {
+  const { gameId, playerId } = args
+  const response = await fetch(`${apiUrl}/api/games/${gameId}/decrement-goals`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ playerId }),
+  })
+  
+  if (!response.ok) {
+    throw new Error('Failed to decrement game goals')
+  }
+
+  return response.json()
+} 
+
+export const setGameGoals = async (args: {gameId: number, playerId: number, goals: number}): Promise<PlayerStats> => {
+  const { gameId, playerId, goals } = args
+  const response = await fetch(`${apiUrl}/api/games/${gameId}/set-goals`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ playerId, goals }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to set game goals')
+  }
+
+  return response.json()
+} 

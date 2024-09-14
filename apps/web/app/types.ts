@@ -10,3 +10,8 @@ export interface Game {
   goalsPlayer2: number
   gameId: number
 }
+export interface PlayerStats {
+  gameId: number
+  playerId: number
+  goals: number
+}
