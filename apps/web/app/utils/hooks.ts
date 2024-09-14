@@ -15,3 +15,11 @@ export function usePlayers() {
   const player2 = players?.find((p) => p.id === parseInt(p2 ?? '0'))
   return { player1, player2 }
 }
+
+export function usePlayersCount() {
+  const { data: players } = useQuery<Player[]>({
+    queryKey: ['players'],
+    queryFn: fetchPlayers,
+  })
+  return players?.length
+}
