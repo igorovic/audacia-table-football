@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useQueryState } from 'nuqs'
 import { createGame } from '../app/utils/mutations'
 import { useMutation } from '@tanstack/react-query'
+import { usePlayersCount } from '../app/utils/hooks'
 
 function SoccerField() {
   const router = useRouter()
@@ -17,6 +18,8 @@ function SoccerField() {
       router.push(`/game?gameId=${data.gameId}&p1=${player1}&p2=${player2}`)
     },
   })
+  const playersCount = usePlayersCount()
+
   return (
     <Box h="100vh" p="md">
       <Card radius="md" my="md" withBorder>
@@ -44,7 +47,13 @@ function SoccerField() {
           </Button>
         </Flex>
         <Flex align="center" justify="center" mt="md">
-          <Text>select players</Text>
+          {playersCount === 0 ? (
+            <Text>Create a player first with the + button</Text>
+          ) : (
+            <Text>
+            select players
+            </Text>
+          )}
         </Flex>
         {error && <Text c="red">{error.message}</Text>}
       </Card>
