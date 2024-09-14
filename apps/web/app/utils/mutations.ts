@@ -1,5 +1,5 @@
 import { apiUrl } from '../env'
-import { Game, Player, PlayerStats } from '../types'
+import { Game, Player, PlayerGoals } from '../types'
 
 export const createPlayer = async (name: string): Promise<Player> => {
   const response = await fetch(`${apiUrl}/api/players`, {
@@ -59,7 +59,7 @@ export const createGame = async (players: {
   return response.json()
 }
 
-export const incrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerStats> => {
+export const incrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerGoals> => {
   const { gameId, playerId } = args
   const response = await fetch(`${apiUrl}/api/games/${gameId}/increment-goals`, {
     method: 'PUT',
@@ -76,7 +76,7 @@ export const incrementGameGoals = async (args: {gameId: number, playerId: number
   return response.json()
 }
 
-export const decrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerStats> => {
+export const decrementGameGoals = async (args: {gameId: number, playerId: number}): Promise<PlayerGoals> => {
   const { gameId, playerId } = args
   const response = await fetch(`${apiUrl}/api/games/${gameId}/decrement-goals`, {
     method: 'PUT',
@@ -93,7 +93,7 @@ export const decrementGameGoals = async (args: {gameId: number, playerId: number
   return response.json()
 } 
 
-export const setGameGoals = async (args: {gameId: number, playerId: number, goals: number}): Promise<PlayerStats> => {
+export const setGameGoals = async (args: {gameId: number, playerId: number, goals: number}): Promise<PlayerGoals> => {
   const { gameId, playerId, goals } = args
   const response = await fetch(`${apiUrl}/api/games/${gameId}/set-goals`, {
     method: 'PUT',
