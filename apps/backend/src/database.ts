@@ -69,6 +69,28 @@ export async function createGame(playerIds: number[]) {
     });
 }
 
+// Function to get the current goals for a player in a game
+export async function getPlayerGoals(gameId: number, playerId: number) {
+    const gameParticipant = await prisma.gameParticipant.findUnique({
+        where: {
+            playerId_gameId: {
+                playerId,
+                gameId,
+            },
+        },
+        select: {
+            goals: true,
+        },
+    });
+
+    if (!gameParticipant) {
+        throw new Error("Player is not a participant in this game");
+    }
+
+    return gameParticipant.goals;
+}
+
+
 // Function to increment goals for a player in a game
 export async function incrementPlayerGoals(gameId: number, playerId: number) {
     return await prisma.gameParticipant.update({
