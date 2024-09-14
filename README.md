@@ -9,6 +9,14 @@ In the project root run:
 docker compose up --build
 ```
 
+The web app is served at `http://localhost:3000` and the backend api at `http://localhost:3022`.
+Open both urls in your browser to see the app in action.
+
+# Project structure
+
+This project is a monorepo managed with pnpm and turborepo.
+The `backend` code resides in the `apps/backend` folder and the `web` app in the `apps/web` folder.
+
 ## Tech stack
 
 - Next.js - frontend | because I have long experience with it
@@ -33,6 +41,10 @@ docker compose up --build
 
 - In the current version, it's possible to create a game but not set any score. In that case there will be an orphan game in `Game` table without participants. We should implement a pruning function for those instances or some security mechanism to avoid this case.
 - There is no security to check on game participants. Which means that is's possible to add more than two players to a game.
+
+# Notes
+
+- In this implementation the game score is stored on each change. This is fine for this POC with a local sqlite database. However, in production we should use a different approach to limit the number of network requests.
 
 ## Options for future improvements
 
