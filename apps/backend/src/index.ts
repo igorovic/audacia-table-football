@@ -5,6 +5,7 @@ import {
   getPlayerByIdRoute,
   listPlayers,
   createPlayerRoute,
+  getPlayerStatsRoute, // Add this import
 } from './routes/player.route'
 import { swaggerUI } from '@hono/swagger-ui'
 import {
@@ -16,6 +17,7 @@ import {
   incrementPlayerGoals,
   decrementPlayerGoals,
   getPlayerGoals,
+  getPlayerStats, // Add this import
 } from './database'
 import {
   storeMatchResultsRoute,
@@ -90,6 +92,12 @@ api.openapi(createGameRoute, async (c) => {
   const { player1Id, player2Id } = c.req.valid('json')
   const game = await createGame([player1Id, player2Id])
   return c.json({ gameId: game.id })
+})
+
+api.openapi(getPlayerStatsRoute, async (c) => {
+  const { id } = c.req.valid('param')
+  const stats = await getPlayerStats(Number(id))
+  return c.json(stats)
 })
 
 // The OpenAPI documentation will be available at /openapi.json

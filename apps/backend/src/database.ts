@@ -90,7 +90,6 @@ export async function getPlayerGoals(gameId: number, playerId: number) {
     return gameParticipant.goals;
 }
 
-
 // Function to increment goals for a player in a game
 export async function incrementPlayerGoals(gameId: number, playerId: number) {
     return await prisma.gameParticipant.update({
@@ -183,6 +182,54 @@ export async function getPlayerTotalGoals(playerId: number) {
     });
 
     return { totalGoals, totalGoalsAgainst };
+}
+
+// Function to get player stats
+export async function getPlayerStats(playerId: number) {
+    const playerGames = await prisma.gameParticipant.findMany({
+        where: { playerId },
+        include: {
+            game: {
+                include: {
+                    participants: true
+                }
+            }
+        }
+    });
+
+    let gamesPlayed = playerGames.length;
+    let gamesWon = 0;
+    let gamesLost = 0;
+    let goalsFor = 0;
+    let goalsAgainst = 0;
+
+    playerGames.forEach(game => {
+        const playerGoals = game.goals;
+        const opponentGoals = game.game.participants.find(p => p.playerId !== playerId)?.goals || 0;
+
+        goalsFor += playerGoals;
+        goalsAgainst += opponentGoals;
+
+        if (playerGoals > opponentGoals) {
+            gamesWon++;
+        } else if (playerGoals < opponentGoals) {
+            gamesLost++;
+        }
+        // Ties are not counted in gamesWon or gamesLost
+    });
+
+    const winRatio = gamesPlayed > 0 ? gamesWon / gamesPlayed : 0;
+    const goalsDifference = goalsFor - goalsAgainst;
+
+    return {
+        gamesPlayed,
+        gamesWon,
+        gamesLost,
+        winRatio,
+        goalsFor,
+        goalsAgainst,
+        goalsDifference
+    };
 }
 
 // Don't forget to close the Prisma client when your app shuts down

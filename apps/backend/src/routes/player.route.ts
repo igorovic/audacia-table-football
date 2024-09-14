@@ -23,6 +23,16 @@ const PlayerSchema = z.object({
 }).openapi('Player')
 const allPlayersSchema = z.array(PlayerSchema).openapi('Players')
 
+const PlayerStatsSchema = z.object({
+    gamesPlayed: z.number(),
+    gamesWon: z.number(),
+    gamesLost: z.number(),
+    winRatio: z.number(),
+    goalsFor: z.number(),
+    goalsAgainst: z.number(),
+    goalsDifference: z.number()
+}).openapi('PlayerStats')
+
 export const listPlayers = createRoute({
     method: 'get',
     path: '/players',
@@ -82,6 +92,24 @@ export const createPlayerRoute = createRoute({
                 },
             },
             description: 'Create a new player',
+        },
+    },
+})
+
+export const getPlayerStatsRoute = createRoute({
+    method: 'get',
+    path: '/players/{id}/stats',
+    request: {
+        params: getPlayerByIdSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: PlayerStatsSchema,
+                },
+            },
+            description: 'Retrieve the player stats',
         },
     },
 })
