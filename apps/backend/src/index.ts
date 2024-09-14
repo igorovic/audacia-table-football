@@ -5,7 +5,7 @@ import {
   getPlayerByIdRoute,
   listPlayers,
   createPlayerRoute,
-  getPlayerStatsRoute, // Add this import
+  getPlayerStatsRoute,
 } from './routes/player.route'
 import { swaggerUI } from '@hono/swagger-ui'
 import {
@@ -17,7 +17,7 @@ import {
   incrementPlayerGoals,
   decrementPlayerGoals,
   getPlayerGoals,
-  getPlayerStats, // Add this import
+  getPlayerStats,
 } from './database'
 import {
   storeMatchResultsRoute,
