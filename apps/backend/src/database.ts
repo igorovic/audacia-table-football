@@ -39,20 +39,20 @@ export async function getGameById(id: number) {
 }
 
 // Function to get top scorers
-export async function getTopScorers(limit: number = 5) {
-    return await prisma.gameParticipant.groupBy({
-        by: ['playerId'],
-        _sum: {
-            goals: true,
-        },
-        orderBy: {
-            _sum: {
-                goals: 'desc',
-            },
-        },
-        take: limit,
-    });
-}
+// export async function getTopScorers(limit: number = 5) {
+//     return await prisma.gameParticipant.groupBy({
+//         by: ['playerId'],
+//         _sum: {
+//             goals: true,
+//         },
+//         orderBy: {
+//             _sum: {
+//                 goals: 'desc',
+//             },
+//         },
+//         take: limit,
+//     });
+// }
 
 // Function to create a new game with participants
 export async function createGame(playerIds: number[]) {
@@ -230,6 +230,22 @@ export async function getPlayerStats(playerId: number) {
         goalsAgainst,
         goalsDifference
     };
+}
+
+export async function getRankedPlayers() {
+    const players = await getAllPlayers();
+    const rankedPlayers = await Promise.all(players.map(async (player) => ({
+        ...player,
+        ...await getPlayerStats(player.id)
+    })));
+    // Sort rankedPlayers by win ratio (descending) and then by goals difference (descending)
+    rankedPlayers.sort((a, b) => {
+        if (b.winRatio !== a.winRatio) {
+            return b.winRatio - a.winRatio;
+        }
+        return b.goalsDifference - a.goalsDifference;
+    });
+    return rankedPlayers;
 }
 
 // Don't forget to close the Prisma client when your app shuts down

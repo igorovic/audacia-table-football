@@ -33,6 +33,7 @@ const PlayerStatsSchema = z.object({
     goalsDifference: z.number()
 }).openapi('PlayerStats')
 
+
 export const listPlayers = createRoute({
     method: 'get',
     path: '/players',
@@ -110,6 +111,35 @@ export const getPlayerStatsRoute = createRoute({
                 },
             },
             description: 'Retrieve the player stats',
+        },
+    },
+})
+
+const RankedPlayerSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    gamesPlayed: z.number(),
+    gamesWon: z.number(),
+    gamesLost: z.number(),
+    winRatio: z.number(),
+    goalsFor: z.number(),
+    goalsAgainst: z.number(),
+    goalsDifference: z.number()
+}).openapi('RankedPlayer')
+export type RankedPlayer = z.infer<typeof RankedPlayerSchema>
+
+const RankedPlayersSchema = z.array(RankedPlayerSchema).openapi('RankedPlayers')
+export const getRankedPlayersRoute = createRoute({
+    method: 'get',
+    path: '/ranked-players',
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: RankedPlayersSchema,
+                },
+            },
+            description: 'Retrieve the ranked players',
         },
     },
 })

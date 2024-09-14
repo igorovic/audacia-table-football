@@ -6,6 +6,7 @@ import {
   listPlayers,
   createPlayerRoute,
   getPlayerStatsRoute,
+  getRankedPlayersRoute,
 } from './routes/player.route'
 import { swaggerUI } from '@hono/swagger-ui'
 import {
@@ -18,6 +19,7 @@ import {
   decrementPlayerGoals,
   getPlayerGoals,
   getPlayerStats,
+  getRankedPlayers,
 } from './database'
 import {
   storeMatchResultsRoute,
@@ -100,6 +102,12 @@ api.openapi(getPlayerStatsRoute, async (c) => {
   return c.json(stats)
 })
 
+api.openapi(getRankedPlayersRoute, async (c) => {
+  const rankedPlayers = await getRankedPlayers()
+  return c.json(rankedPlayers)
+})
+
+const port = 3022
 // The OpenAPI documentation will be available at /openapi.json
 api.doc('/openapi.json', {
   openapi: '3.0.0',
@@ -107,12 +115,16 @@ api.doc('/openapi.json', {
     version: '1.0.0',
     title: 'Table football API',
   },
+  servers: [
+    {
+      url: `http://localhost:${port}/api`,
+    },
+  ],
 })
 
 app.route('/api', api)
 app.get('/', swaggerUI({ url: '/api/openapi.json' }))
 
-const port = 3022
 console.log(`Server is running on port ${port}`)
 console.log(`Database file: ${process.env.DATABASE_URL}`)
 
