@@ -1,6 +1,11 @@
 'use client'
 import { ActionIcon, Menu as MantineMenu } from '@mantine/core'
-import { IconMenu2, IconSoccerField, IconTrophy } from '@tabler/icons-react'
+import {
+  IconHome,
+  IconMenu2,
+  IconSoccerField,
+  IconTrophy,
+} from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 
 function AppMenu() {
@@ -13,6 +18,12 @@ function AppMenu() {
         </ActionIcon>
       </MantineMenu.Target>
       <MantineMenu.Dropdown>
+        <MantineMenu.Item
+          leftSection={<IconHome />}
+          onClick={() => router.push('/')}
+        >
+          Home
+        </MantineMenu.Item>
         <MantineMenu.Item
           leftSection={<IconTrophy />}
           onClick={() => router.push('/leaderboard')}
