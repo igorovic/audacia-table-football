@@ -46,8 +46,25 @@ There was not much thought put into the database schema. The goal was to create 
 
 # Tests
 
-Tests are descrutive they will resest the database. So make sure to back up the database before running them.
-However this is temporary and will only impact dev environment on the local machine.
+> **Warning**
+> Tests are destructive they will resest the database. So make sure to back up the database before running them.
+> However this is temporary and will only impact dev environment on the local machine.
+
+# Local dev
+
+If you need to run the project locally in dev mode make sur to create the `.env` files according to the examples for each app.
+
+**intall turbo globally**
+
+```
+npm i -g turbo
+```
+
+Then run the following command at the root of your project.
+
+```
+turbo dev
+```
 
 # Notes
 
