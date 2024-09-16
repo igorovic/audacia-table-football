@@ -59,7 +59,7 @@ However this is temporary and will only impact dev environment on the local mach
 - Create a production ready container. Currently it simply runs the app with pnpm and next
 - Use semantic commit messages
 - should share types definition between backend and frontend apps
-- use a shared library for backend and frontend
+- use a shared library for backend and frontend - so we can share types definitions
 - add authentication for the app but mot importantly for the database
 - implement a more engaging user interface
 - use motion detection and device orientation to increase the goals in the realtime game tracker (e.g: swipe up to increase goal for player 1, swipe down to increase goal for player 2)
