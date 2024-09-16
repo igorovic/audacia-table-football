@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   web:
+    container_name: audacia-table-football-web
     build:
       context: .
       dockerfile: web.Dockerfile
@@ -13,6 +14,7 @@ services:
       - backend
 
   backend:
+    container_name: audacia-table-football-backend
     build:
       context: .
       dockerfile: backend.Dockerfile
