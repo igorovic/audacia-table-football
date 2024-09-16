@@ -38,22 +38,6 @@ export async function getGameById(id: number) {
   })
 }
 
-// Function to get top scorers
-// export async function getTopScorers(limit: number = 5) {
-//     return await prisma.gameParticipant.groupBy({
-//         by: ['playerId'],
-//         _sum: {
-//             goals: true,
-//         },
-//         orderBy: {
-//             _sum: {
-//                 goals: 'desc',
-//             },
-//         },
-//         take: limit,
-//     });
-// }
-
 // Function to create a new game with participants
 export async function createGame(playerIds: number[]) {
   return await prisma.game.create({
