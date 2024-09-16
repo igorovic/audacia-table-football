@@ -46,7 +46,7 @@ There was not much thought put into the database schema. The goal was to create 
 
 # Tests
 
-> **Warning**
+> ⚠️**Warning**<br>
 > Tests are destructive they will resest the database. So make sure to back up the database before running them.
 > However this is temporary and will only impact dev environment on the local machine.
 
